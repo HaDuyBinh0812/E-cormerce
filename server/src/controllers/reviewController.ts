@@ -70,6 +70,10 @@ export const createReview = async (
             return;
         }
 
+        const avtstart = await prisma.review.findMany({
+            where: { productId: orderItem.productId },
+        });
+
         // 5️⃣ Create review (transaction)
         const review = await prisma.$transaction(async (tx) => {
             const createdReview = await tx.review.create({
