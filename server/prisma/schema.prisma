@@ -23,6 +23,7 @@ model User{
   updatedAt DateTime @updatedAt @default(now())
   refreshToken String? @unique
   cart Cart?
+  reviews Review[]
   addresses Address[]
   orders Order[]
 }
@@ -40,6 +41,7 @@ model Product{
   stock Int
   soldCount Int
   rating Float?
+  reviews Review[]
   images String[]
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt @default(now())
@@ -136,6 +138,7 @@ model OrderItem{
   productId String
   productName String
   productCategory String
+  reviews Review?
   quantity Int
   size String?
   color String?
@@ -146,6 +149,31 @@ model OrderItem{
   @@index([orderId])
   @@index([productId])
 }
+
+model Review {
+  id        String   @id @default(cuid())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+
+  orderItemId String
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id])
+
+  rating    Int      // 1 → 5
+  comment   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([orderItemId]) 
+  @@index([productId])
+  @@index([userId])
+}
+
+
 
 enum Role {
   USER

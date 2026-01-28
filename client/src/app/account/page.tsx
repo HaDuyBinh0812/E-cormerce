@@ -19,6 +19,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import OrderDetailDialog from "@/components/order/OrderDetailDialog";
 
 const initialAddress = {
     name: "",
@@ -48,6 +49,7 @@ function UserAccountPage() {
         updateAddress,
     } = useAddressStore();
     const { userOrders, getOrdersByUserId, isLoading } = useOrderStore();
+    console.log(userOrders);
 
     const handleDeleteAddress = async (id: string) => {
         const confirm = window.confirm("Are you sure to delete this address");
@@ -158,6 +160,7 @@ function UserAccountPage() {
                                                 <TableHead>Date</TableHead>
                                                 <TableHead>Items</TableHead>
                                                 <TableHead>Status</TableHead>
+                                                <TableHead>Action</TableHead>
                                                 <TableHead>Total</TableHead>
                                             </TableRow>
                                         </TableHeader>
@@ -191,6 +194,11 @@ function UserAccountPage() {
                                                                     1
                                                                 )}
                                                         </Badge>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <OrderDetailDialog
+                                                            order={order}
+                                                        />
                                                     </TableCell>
                                                     <TableCell>
                                                         {order.total.toFixed(2)}

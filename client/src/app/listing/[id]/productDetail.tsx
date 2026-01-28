@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductDetailSkeleton from "./productSkeleton";
 import { useCartStore } from "../../../../store/useCartStore";
 import { useToast } from "@/hooks/use-toast";
+import ReviewList from "@/components/reviewList/riviewList";
 
 function ProductDetailContent({ id }: { id: string }) {
     const router = useRouter();
@@ -78,7 +79,7 @@ function ProductDetailContent({ id }: { id: string }) {
                                             className="w-full aspect-square object-cover"
                                         />
                                     </button>
-                                )
+                                ),
                             )}
                         </div>
                         <div className="flex-1 relative w-[300px]">
@@ -118,7 +119,7 @@ function ProductDetailContent({ id }: { id: string }) {
                                                 setSelectedColor(index)
                                             }
                                         ></button>
-                                    )
+                                    ),
                                 )}
                             </div>
                         </div>
@@ -142,7 +143,7 @@ function ProductDetailContent({ id }: { id: string }) {
                                         >
                                             {size}
                                         </Button>
-                                    )
+                                    ),
                                 )}
                             </div>
                         </div>
@@ -197,7 +198,7 @@ function ProductDetailContent({ id }: { id: string }) {
                             </p>
                         </TabsContent>
                         <TabsContent value="reviews" className="mt-5">
-                            <p className="text-gray-700 mb-4">REVIEWS</p>
+                            <ReviewList productId={id} />
                         </TabsContent>
                         <TabsContent value="shipping" className="mt-5">
                             <p className="text-gray-700 mb-4">
